@@ -1,0 +1,118 @@
+
+Q1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+class calculator
+{
+   public int sum(int a, int b)
+    {
+        return a + b;
+    }
+    public int multiply(int a,int b)
+    {
+        return a * b; 
+    }
+}
+namespace ConsoleApp2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            calculator calculator = new calculator();
+            Console.WriteLine(calculator.sum(2, 3));
+            Console.WriteLine(calculator.multiply(2, 3));   
+        }
+    }
+}
+
+Q2
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLibrary1
+{
+    public class Class1
+    {
+        public int fact(int x)
+        {
+            if (x == 0)
+            { return 1; }
+            else
+            {
+                return x * fact(x - 1);
+            }
+        }
+    }
+}
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+
+namespace ConsoleApp3
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Class1 a = new Class1();
+            Console.WriteLine(a.fact(5));
+        }
+    }
+}
+
+
+Q3
+
+
+using DAC;
+using DBDA;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+namespace DAC{ 
+class student
+{
+   public int sum(int a, int b)
+    {
+        return a + b;
+    }
+    
+}
+}
+namespace DBDA {
+    class Student{
+        public int sum(int a, int b) {  return a + b; }
+
+
+} 
+}
+namespace ConsoleApp2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            student s = new student();
+            Console.WriteLine(s.sum(1, 2));
+            Student a=new Student();
+            Console.WriteLine(s.sum(3,4));
+        }
+    }
+}
