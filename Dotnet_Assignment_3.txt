@@ -1,0 +1,282 @@
+Q1
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+   class student
+    {
+        private int sci;
+        private string name;
+        private int maths;
+        private int eng;
+
+       public student(string name,int sci,int math,int eng)
+       {
+            this.name = name;   
+            this.sci = sci; 
+            this.maths = math;  
+            this.eng = eng; 
+        } 
+        public int totalmarks(int sci,int math,int eng)
+        {
+            return sci + maths + eng;
+        }
+
+        public void display()
+        {
+            int tm = totalmarks(100,100,100);
+            Console.WriteLine(name);
+            Console.WriteLine(tm);
+            
+        }
+
+          
+    }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+            student s1 = new student("Abhishek", 94, 96, 98);
+            s1.display();
+
+
+            }
+        }
+    }
+
+
+Q2
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+   class account
+    {
+        string name;
+        int id;
+        int balance;
+        public void deposit(int amt)
+        {
+            balance += amt;
+            Console.WriteLine(balance);
+        }
+        public void withdraw(int amt)
+        {
+            balance -= amt;
+            Console.WriteLine(balance);
+        }
+        public void display()
+        {
+            Console.WriteLine(name);
+            Console.WriteLine(balance);
+        }
+    }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+            account account = new account();
+            account.deposit(100);
+            account.withdraw(1);
+            account.display();
+            
+
+
+            }
+        }
+    }
+Q3
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+   class employee
+    {
+        private string name;
+        private int id;
+        private int salary;
+        private int netsalary;
+
+        public double Calculatesal(int salary)
+        {
+            netsalary=salary-salary*10/100;
+            return netsalary;
+        }
+        public void display()
+        {
+            
+            Console.WriteLine(name);
+            Console.WriteLine(netsalary);
+        }
+    }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+            employee e1=new employee();
+employee e2=new employee(); 
+employee e3=new employee(); 
+e1.Calculatesal(10000);
+e1.display();
+e2.Calculatesal(30000);
+e2.display();
+e3.Calculatesal(40000);
+e3.display();
+
+
+            }
+        }
+    }
+
+Q4
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+   class employee
+    {
+
+        private string name;
+        private int id;
+        private int salary;
+        private int netsalary;
+
+        static employee()
+        {
+            Console.WriteLine("Name of bank ");
+        }
+
+        public double Calculatesal(int salary)
+        {
+            netsalary=salary-salary*10/100;
+            return netsalary;
+        }
+        public void display()
+        {
+            
+            Console.WriteLine(name);
+            Console.WriteLine(netsalary);
+        }
+    }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+            employee e1=new employee();
+            employee e2=new employee(); 
+            employee e3=new employee(); 
+            e1.Calculatesal(10000);
+            e1.display();
+            e2.Calculatesal(30000);
+            e2.display();
+            e3.Calculatesal(40000);
+            e3.display();
+
+
+            }
+        }
+    }
+
+
+Q5
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    class student
+    {
+        private int sci;
+        private string name;
+        private int maths;
+        private int eng;
+
+        static student ()
+        {
+            Console.WriteLine("Name of school");
+        }
+        
+        
+        
+        public student(string name, int sci, int math, int eng)
+        {
+            this.name = name;
+            this.sci = sci;
+            this.maths = math;
+            this.eng = eng;
+        }
+        public int totalmarks(int sci, int math, int eng)
+        {
+            return sci + maths + eng;
+        }
+
+        public void display()
+        {
+            int tm = totalmarks(100, 100, 100);
+            Console.WriteLine(name);
+            Console.WriteLine(tm);
+
+        }
+
+
+    }
+
+
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            student s1 = new student("Abhishek", 94, 96, 98);
+            s1.display();
+
+
+        }
+    }
+}
+
+
+Q6
+
+
