@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string a, b,c;
+            a = "Hello";
+            b = "Hello";
+            c=Console.ReadLine();
+            Console.WriteLine(c==b);
+            Console.WriteLine(object.ReferenceEquals(a,c));
+            Console.WriteLine(a==b);
+            Console.WriteLine(a==c);
+            Console.WriteLine(Object.Equals(a,b));
+            Console.WriteLine(a.Equals(b));
+            Console.WriteLine(a.Equals(c));
+            Console.WriteLine(Object.Equals(c,b));
+            Console.WriteLine(Object.Equals(a,c));
+
+        }
+    }
+}
+
+
