@@ -1,0 +1,327 @@
+Q1
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    class Account
+    {
+        public int id;
+        public string name;
+        public int balance;
+        public static int getid;
+
+        public Account(string name,int balance)
+        {
+            this.name = name;
+                this.balance = balance;
+            id = ++getid;
+        }
+
+        public int autincrement
+        {
+            get {return id;}
+           
+        }
+        public string Name
+        {
+            get { return name; }
+            set { name=value;}
+        }
+        public int Balance
+        {
+            get { return balance;}
+            set { balance=value;}
+        }
+        public virtual int withdraw(int amount)
+        {
+            return 0;
+        }
+        public int deposit(int amount)
+        {
+            balance += amount;
+            return balance;
+        }
+        public override string ToString()
+        {
+            return $"[ID: {id}, Name: {Name}, Balance: {Balance}]";
+        }
+
+    }
+    class Current : Account
+    {
+        public string name;
+        public int balance;
+        public Current(string name,int balance):base(name,balance) 
+        {
+
+        }
+        public override int withdraw(int amount)
+        {
+            return 0;
+        }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+    }
+    class Saving : Account
+    {
+        public string name;
+        public int balance;
+        public Saving(string name, int balance) : base(name, balance)
+        {
+
+        }
+        public override int withdraw(int amount)
+        {
+            return 0;
+        }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+    }
+   
+
+}
+
+
+internal class Program
+    {
+    static void Main(string[] args)
+    {
+        Account a = new Saving("Abhishek", 10000);
+        Console.WriteLine(a.withdraw(1));
+        Console.WriteLine(a.deposit(2));
+        Account b = new Current("Abhisek2", 102546);
+        Console.WriteLine(b.withdraw(1));
+        Console.WriteLine(b.deposit(5241));
+        Console.WriteLine(a.balance);
+        Console.WriteLine(b.balance);
+        Console.WriteLine(a);
+        Console.WriteLine(b);
+    }
+       
+    }
+
+
+Q2
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    public class Shape
+    {
+         public int m_xpos;
+         protected int m_ypos;
+
+        public Shape()
+        {
+        }
+
+        public Shape(int x, int y)
+        {
+            m_xpos = x;
+            m_ypos = y;
+        }
+
+        public virtual void Draw()
+        {
+            Console.WriteLine("Drawing a SHAPE at {0},{1}", m_xpos, m_ypos);
+        }
+    }
+    public class Square : Shape
+    {
+        public Square()
+        { }
+        public Square(int x, int y) : base(x, y)
+        {
+        }
+        public override void Draw()
+        {
+            Console.WriteLine("Drawing a SQUARE at {0},{1}", m_xpos, m_ypos);
+        }
+        public void FillSquare()
+        {
+            Console.WriteLine("FillSquare");
+        }
+    }
+    public class Circle : Shape
+    {
+        public Circle()
+        { }
+        public Circle(int x, int y) : base(x, y)
+        { }
+        public new void Draw()
+        {
+            Console.WriteLine("Drawing a CIRCLE at {0},{1}", m_xpos, m_ypos);
+        }
+        public void FillCircle()
+        {
+            Console.WriteLine("FillCircle");
+        }
+    }
+  
+
+
+}
+
+
+internal class Program
+    {
+    static void Main(string[] args)
+    {
+        Shape[] shapes = new Shape[3];
+        shapes[0] = new Shape(100, 100);
+        shapes[1] = new Square(200, 200);
+        shapes[2] = new Circle(300, 300);
+        foreach (Shape shape in shapes)
+        {
+            if (shape is Circle)
+                ((Circle)shape).FillCircle();
+
+            if (shape is Square)
+                ((Square)shape).FillSquare();
+            shape.Draw();
+            Circle c = shape as Circle;
+
+            if(c != null)
+
+c.FillCircle();
+
+        }
+
+
+
+
+    }
+
+}
+
+
+
+Q3
+using Sample;
+
+namespace Sample
+{
+    public abstract class Account
+    {
+        int id;
+        string name;
+        public static int balance;
+        public static int getid;
+        public static double interst = 0.07;
+        public const double minbal = 1000;
+
+
+        abstract public void withdraw(double amt);
+        public Account(string name, int balance)
+        {
+
+            this.name = name;
+
+            id = ++getid;
+
+        }
+        public int getId
+        {
+            get { return id; }
+        }
+
+        public static double payint(int interst)
+        {
+            balance = balance + balance * interst;
+            return balance;
+        }
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public int Balance
+        {
+            get { return balance; }
+            set { balance = value; }
+        }
+
+    }
+    public class Saving : Account
+    {
+        public Saving(string name, int balance) : base(name, balance)
+        {
+
+        }
+        public override void withdraw(double amt)
+        {
+            Console.WriteLine("Withdraw");
+        }
+        public new int Balance
+        {
+            get { return balance; }
+            set
+            {
+                if (balance < minbal)
+                    throw new Exception();
+                balance = value;
+            }
+        }
+    }
+    public class Current : Account
+    {
+        public Current(string name, int balance) : base(name, balance)
+        {
+
+        }
+        public override void withdraw(double amt)
+        {
+            Console.WriteLine("Withdraw");
+        }
+        public new int Balance
+        {
+            get { return balance; }
+            set
+            {
+
+                balance = value;
+            }
+        }
+    }
+}
+
+
+
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        Account[] a = new Account[2];
+        a[0] = new Saving("Abhishek", 1000000);
+        a[1] = new Current("Abhishek 2", 12546382);
+        for (int i = 0; i < a.Length; i++)
+        {
+            a[i].withdraw(100);
+
+        }
+
+
+    }
+}
+
+
