@@ -1,0 +1,104 @@
+using Sample;
+
+namespace Sample
+{
+    interface ImessageService
+    {
+        void SendMessage(string message);
+    }
+    class Email:ImessageService
+    {
+        public void SendMessage(string message)
+        {
+            Console.WriteLine(message);
+            Console.WriteLine("Email");
+        }
+    }
+    class Sms:ImessageService
+    {
+        public void SendMessage(string message)
+        {
+            Console.WriteLine(message);
+            Console.WriteLine("Sms");
+        }
+    }
+    static class Messageprovider
+    {
+        public static void Send(ImessageService s,string add)
+        {
+            s.SendMessage(add);//obj.SendMessage("Vita")
+        }
+    }
+}
+
+
+
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        Sms obj= new Sms(); 
+        Email obj1 = new Email();
+
+        Messageprovider.Send(obj, "Vita");
+        Messageprovider.Send(obj1, "Vita2");
+        
+
+    }
+}
+
+
+Q2
+delegate int Math(int x, int y);
+class A
+{
+  
+
+    public static int add(int x, int y)
+    { return x + y; }
+
+    public static int product(int x, int y)
+    { return x * y; }
+
+}
+public class program
+{
+    public static void Main()
+    {
+        Math m = new Math(A.add);
+        int e=m(25, 26);
+        Console.WriteLine(e);
+        Math m1= new Math(A.product);
+        int f=m1(25, 26);   
+        Console.WriteLine(f);
+    }
+}
+
+
+Q3
+
+delegate int Math(int x, int y);
+class A
+{
+  
+
+    public int add(int x, int y)
+    { return x + y; }
+
+    public int product(int x, int y)
+    { return x * y; }
+
+}
+public class program
+{
+    public static void Main()
+    {
+        A a = new A();
+        Math m = new Math(a.add);
+        int e=m(25, 26);
+        Console.WriteLine(e);
+        Math m1= new Math(a.product);
+        int f=m1(25, 26);   
+        Console.WriteLine(f);
+    }
+}
