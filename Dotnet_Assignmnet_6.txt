@@ -1,0 +1,158 @@
+Q1
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    class calculator
+    {
+        static int sum = 0;
+        public static int Cal(int x,out int y)
+        {
+            int whole;
+            whole = (int)x;
+            y = 0;
+            while(x>0)
+            {
+                int digit=x%10;
+                
+                sum += digit;
+                x/=10;
+                y++;
+            }
+            return sum ;
+
+        }
+
+       
+
+        
+
+    }
+    
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            calculator c= new calculator();
+            int i = calculator.Cal(265, out int y);
+            Console.WriteLine(i);
+
+        }
+    }
+}
+
+Q2
+Create class Account having member variable id,name, balance.
+Write getter/setter for id, name and balance
+create method deposit which will increase balance
+Create two child class currentaccount and saving account
+It has member type,
+In both the class create withdraw method who’ s job is to reduce balance.
+In currentaccount negative balance allowed
+In savingaccount –ve balance not allowed.
+When you load application it should print name of bank.
+New Savingaccount(1,”Raj”,50000,” “saving”)
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    class Account
+    {
+        string name;
+        int id;
+        public  int balance;
+        static int getid;
+
+        static Account()
+        {
+            Console.WriteLine("Name of the bank");
+        }
+
+        public Account(string name,int balance)
+        {
+            this.name = name;
+            id = getid++; 
+            this.balance = balance;
+            
+        }  
+        public string Name
+        {
+            get{
+                return name;
+            }
+            set{
+                if (value.Length > 15)
+                    throw new Exception();
+                name=value;
+            
+            }
+        }
+        public int Balance
+        {
+            get { return balance; }
+            set { balance =value; }
+        }
+       
+        public void deposit(int b)
+        {
+            balance += b;
+        }
+        
+    }
+    class currentaccount:Account
+    {
+        currentaccount(string name,int balance):base(name,balance)
+        {
+             
+        }
+        public void withdraw(int a)
+        {
+           
+            balance -= a;
+        }
+    }
+    class saving:Account
+    {
+        public saving(string name,int balance):base(name,balance) { }
+        public void withdraw()
+        {
+            if (balance < 0)
+                throw new Exception();
+            balance -= balance;
+        }
+    }
+
+    
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+              saving s = new saving("Raj", 5000);
+  Console.WriteLine(s.Balance);
+  s.deposit(2510);
+  Console.WriteLine(s.Balance);
+  s.withdraw(5000);
+  Console.WriteLine(s.Balance);
+  currentaccount c = new currentaccount("Abhishek", 7000);
+  Console.WriteLine(c.Balance);
+        }
+    }
+}
+

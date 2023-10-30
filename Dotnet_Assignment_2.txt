@@ -1,0 +1,239 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    class Convert { 
+        public static int add(int x,int y)
+        {
+            return x + y;
+        }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                string s1 = Console.ReadLine() ;
+                string s2= Console.ReadLine() ;
+                int x = int.Parse(s1);
+                int y = int.Parse(s2);
+                Console.WriteLine(add(x, y));
+
+
+            }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    class Convert { 
+
+        public static int add(int x,int y)
+        {
+            return x + y;
+        }
+        public static double sqr(double p)
+        {
+            return p * p;
+        }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                double f1, f2;
+                string s1 = Console.ReadLine() ;
+                string s2 = Console.ReadLine() ;
+                double p = double.Parse(s1);
+                Console.WriteLine(sqr(p));
+                bool o =double.TryParse(s2, out f1);
+                Console.WriteLine(o);
+            }
+        }
+    }
+}
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    class Convert1 { 
+
+        public static int add(int x,int y)
+        {
+            return x + y;
+        }
+        public static double sqr(double p)
+        {
+            return p * p;
+        }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                double f1, f2;
+                string s1 = Console.ReadLine() ;
+                string s2 = Console.ReadLine() ;
+                string s3= Console.ReadLine() ;
+                double p = double.Parse(s1);
+                Console.WriteLine(sqr(p));
+                bool o =double.TryParse(s2, out f1);
+                Console.WriteLine(o);
+
+                double q=Convert.ToSingle(s3);
+                Console.WriteLine(q);
+            }
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    class calculator
+    {
+        public static double sqr(double a)
+        {
+            return a*a;
+        }
+        public static double cube(double b) 
+        {
+            return b*b*b;
+        }
+        public static int roundoff(double d)
+        {
+            int f = (int)d;
+            return f;
+        }
+    }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+                string s1=Console.ReadLine();
+                string s2=Console.ReadLine();
+                string s3=Console.ReadLine();
+                string s4 = Console.ReadLine();
+            double a = double.Parse(s1);
+            double b = double.Parse(s2);
+            double c = double.Parse(s3);
+            double d = double.Parse(s4);
+            Console.WriteLine(calculator.sqr(a));
+            Console.WriteLine(calculator.cube(b));
+            Console.WriteLine(calculator.roundoff(d));
+
+
+            }
+        }
+    }
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ClassLibrary1;
+using ConsoleApp3;
+
+namespace ConsoleApp3
+{
+    enum dep
+    {
+        MKT = 1, ADV = 2, ADMN = 3
+    }
+    class Emp
+    {
+        String name;
+        int id;
+        float salary;
+        dep d;
+
+        public Emp(String name,int id,dep dd)
+        {
+            this.id = id;
+            this.name = name;
+            this.salary = salary;
+            d = dd;
+
+        }
+        public static void depwise(Emp[]arr)
+        {
+            float dam=0,dadv=0,dmn=0;
+            for(int i = 0; i <arr.Length; i++) 
+            {
+                if(arr[i].d == dep.MKT )
+                
+                    dmn = dmn + arr[i].salary;
+                else if (arr[i].d==dep.ADV)
+                    dam = dam + arr[i].salary;
+                else if (arr[i].d==dep.ADMN)
+                    dadv=dadv + arr[i].salary;
+            }
+            Console.WriteLine("MKT={0}ADV={1}ADMIN={2}", dam, dadv, dmn);
+
+        }
+
+
+    }
+
+
+
+        internal class Program
+        {
+            static void Main(string[] args)
+            {
+            Emp emp1 = new Emp("Raj", 3000, dep.ADMN);
+            Emp emp2 = new Emp("Reena", 2000, dep.ADMN);
+            Emp emp3 = new Emp("Geeta", 1000, dep.MKT);
+            Console.WriteLine(emp1);
+            Emp[] arr = new Emp[3];
+            arr[0]= emp1;
+            arr[1]= emp2;
+            arr[2]= emp3;
+            Emp.depwise(arr);
+
+            }
+        }
+    }
+
+
+
