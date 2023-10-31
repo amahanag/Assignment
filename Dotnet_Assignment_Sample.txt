@@ -1,0 +1,166 @@
+Q1
+using System;
+namespace ABC
+{
+    public class program
+    {
+        public static void Main()
+        {
+            Action<int,int> at = new Action<int,int>(add);
+            at(1,2);
+            at(2,3);
+            at(3, 4);    
+            at(4,5);
+            Func<int, int,int> ft = new Func<int,int,int>(product);
+            int result=ft(7,2);
+            int result2=ft(2,3);
+            int result3=ft(3,4);
+            int result4=ft(4,5);
+            Console.WriteLine("{0},{1},{2},{3}",result,result2,result3,result4);
+
+
+
+
+        }
+        public static void add(int t1, int t2)
+        {
+            int result = t1 + t2;
+            Console.WriteLine(result);
+        }
+        public static int product(int t1, int t2)
+        {
+            return t1*t2;
+        }
+    }
+}
+
+Q2
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+namespace ABC
+{
+    class Animal { }
+    class employee
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double salary { get; set; }
+        public employee() { }
+        public employee(String name,int salary)
+        {
+
+            this.Name = name;
+            this.salary = salary;
+        }
+        public override string ToString()
+        {
+            return string.Format("{0},{1}",Name,salary);
+        }
+    }
+
+    public class program
+    {
+        public static void Main()
+        {
+            ArrayList al = new ArrayList { new employee { Name = "Abhishek", salary = 250000 }, new employee { Name = "Abhishek2", salary = 3500000 }, new employee { Name = "Abhishek", salary = 4500000 } };
+            al.Add(new Animal());
+            foreach(employee e in al)
+                Console.WriteLine(e);
+
+        }
+    }
+}
+
+
+Q3
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+namespace ABC
+{
+   /* public class List<char>:IList<char>,ICollection<char>,
+    {
+        public List() { }
+        public List(int capacity) { }
+        public int count { get; }
+        public void Add(char c) { }
+
+    }*/
+    public class program
+    {
+        public static void Main()
+        {
+           List<char>l= new List<char>();
+            Console.WriteLine("Count-{0},capacity-{1}",l.Count,l.Capacity);
+            l.Add('A');
+            l.Add('B');
+            l.Add('H');
+            l.Add('I');
+            l.Add('S');
+            l.Add('H');
+            l.Add('E');
+            l.Add('K');
+            Console.WriteLine("Count-{0},capacity-{1}", l.Count, l.Capacity);
+            for (int i = 0; i < l.Count; i++)
+                Console.Write(l[i] + " ");
+            Console.WriteLine("\n");
+            l.Remove('A');
+            l.Remove('I');
+            foreach(char c in l) Console.WriteLine(c);
+            Console.WriteLine("------------**********************************---------------------------------------------");
+            l[0]= 'A';
+            l[1] = 'K';
+            l[2] = 'U';
+            foreach(char c in l) Console.WriteLine(c);
+            Console.WriteLine("----------------------------/////////////////////////////////////---------------------------");
+            l.Add('I');
+            l.Add('A');
+            foreach (char c in l) Console.WriteLine(c);
+
+        }
+    }
+}
+Q4
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+namespace ABC
+{
+   public class Employee
+    {
+        public string Name { get; set; }
+        public int Salary { get; set; }
+        public Employee() { }   
+        public Employee(string name, int salary)
+        {
+            Name = name;
+            Salary = salary;    
+        }
+        public override string ToString()
+        {
+            return String.Format("{0},{1}",Name,Salary);
+        }
+    }
+    public class program
+    {
+        public static void Main()
+        {
+           List<Employee> e = new List<Employee> { new Employee { Name = "Abhishek", Salary = 250000 }, new Employee { Name = "Abhishek2", Salary = 3500000 }, new Employee { Name = "Abhishek", Salary = 4500000 } };
+            foreach(Employee ee in e)
+                Console.WriteLine(ee);
+
+            Employee obj = e.Find((arr) => arr.Salary == 250000);
+            Console.WriteLine(obj);
+
+
+        }
+    }
+}
+
+
+
+
+
