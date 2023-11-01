@@ -1,0 +1,268 @@
+
+Q6
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    delegate void Cnt(int a,int b);
+  
+  
+    public class program
+    {
+       
+        public static void Main()
+        {
+            Cnt a, b, c;
+            a = delegate(int a,int b)
+            {
+                Console.WriteLine(a+b);
+            };
+            b = delegate (int a, int b)
+            {
+                Console.WriteLine(a*b);
+
+            };
+            c = a + b;
+            c(25, 63);
+            c -= b;
+            c(63, 97);
+
+
+
+        }
+    }
+}
+
+
+Q6
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    delegate int Cnt(int a);
+  
+  
+    public class program
+    {
+       
+        public static void Main()
+        {
+           
+            Cnt a, b, c;
+            a = delegate(int a)
+            {
+                int Sum = 0;
+                for (int i = 0;i<=a;i++)
+                {
+                   
+                    Console.WriteLine(i);
+                    Sum += i;
+                }
+                return Sum;
+                //Console.WriteLine(a+b);
+            };
+            int result = a(25);
+            Console.WriteLine("For the summation for 25 :-{0}",result);
+            int result1 = a(625);
+            Console.WriteLine("For the summation for 625 :-{0}", result1);
+
+
+
+        }
+    }
+}
+
+
+Q7
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    delegate int Cnt(int a);
+    delegate bool Iseven(int a);
+
+
+
+    public class program
+    {
+       
+        public static void Main()
+        {
+            Cnt c = D => D + 2;
+            Console.WriteLine();
+            int x = -10;
+            while(x <= 0)
+            {
+                Console.WriteLine(x+" ");
+                x=c(x);
+            }
+            Console.WriteLine("\n");
+            Iseven i=n=>n%2==0;
+            for(int k=0; k<10; k++) 
+                if(i(k))
+                    Console.WriteLine(i);
+
+
+
+        }
+    }
+}
+
+
+Q8
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    delegate int Cnt(int a);
+
+    public class program
+    {
+       
+        public static void Main()
+        {
+            Cnt cnt = D =>
+            {
+                int r = 1;
+                for (int i = 1; i <= D; i++)
+                
+                    r = i * r;
+                    return r;
+                
+            };
+           Console.WriteLine(cnt(3));
+	Console.WriteLine(cnt(4));
+	Console.WriteLine(cnt(5));
+	Console.WriteLine(cnt(6));
+	Console.WriteLine(cnt(7));
+	Console.WriteLine(cnt(8));
+        }
+    }
+}
+
+Q9
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    delegate int Cnt(int a);
+
+    public class program
+    {
+       
+        public static void Main()
+        {
+            Cnt cnt = D =>
+            {
+                int r = 1;
+                for (int i = 1; i <= D; i++)
+                
+                    r = i * r;
+                    return r;
+                
+            };
+            Console.WriteLine(cnt(3));
+            Console.WriteLine(cnt(4));
+            Console.WriteLine(cnt(5));
+            Console.WriteLine(cnt(6));
+            Console.WriteLine(cnt(7));
+            Console.WriteLine(cnt(8));
+
+            cnt += (no) => no * 6;
+            foreach (Cnt mm in cnt.GetInvocationList())
+            {
+                Console.WriteLine(mm.Method + "The factorial of 3 is " + mm.Invoke(5)); //6  4
+            }
+            Delegate[] d = cnt.GetInvocationList();
+            Console.WriteLine(d.Length);
+            Console.WriteLine(d[0].DynamicInvoke(5));
+
+        }
+
+
+
+    }
+}
+
+
+
+Q10
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    delegate string str(string s);
+    public class program
+    {
+        
+
+
+public static void Main()
+        {
+            string str1;
+
+            //replace spaces with -
+            str Replace = s =>
+            {
+
+                Console.WriteLine();
+                return s.Replace(" ", "-");
+
+            };
+            Console.WriteLine("This is the test");
+            str1 = Replace("This is the test");
+            
+            Console.WriteLine(str1);
+            str removespace = s =>
+            {
+                string temp = "";
+                for(int i=0;i<s.Length;i++)
+                    if (s[i] != ' ') 
+                        temp += s[i];
+                return temp;
+                        
+            };
+            str1 =removespace("This is the test");
+
+            Console.WriteLine(str1);
+            str reverse = s =>
+            {
+                string tempp = "";
+                for (int i = s.Length - 1; i >= 0; i--)
+                    tempp += s[i];
+                return tempp;
+
+            };
+            str1 = reverse("This is the test");
+
+            Console.WriteLine(str1);
+
+
+        }
+
+
+        }
+}
+
+
+
+
+

@@ -1,0 +1,150 @@
+Q1
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+namespace ABC
+{
+  
+    public class program
+    {
+        public static void Refectoveranonymous(object obj)
+        {
+            Console.WriteLine("Base:{0} is {1} with {2} and have {3}",obj.GetType().Name,obj.GetType().BaseType,obj.GetHashCode(),obj.ToString());
+        }
+        public static void Main()
+        {
+            var mycar = new { Color = "Bright Pink", Make = "Saab", CurrentSpeed = 55 };
+            Refectoveranonymous(mycar);
+
+
+        }
+    }
+}
+
+Q2
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+namespace ABC
+{
+  
+    public class program
+    {
+        public static void Refectoveranonymous(object obj)
+        {
+            Console.WriteLine("Base:{0} is {1} with {2} and have {3}",obj.GetType().Name,obj.GetType().BaseType,obj.GetHashCode(),obj.ToString());
+        }
+        public static void Main()
+        {
+            var first = new { Color = "Bright Pink", Make = "Saab", CurrentSpeed = 55 };
+            var seconf = new { Color = "Bright Pink", Make = "Saab", CurrentSpeed = 55 };
+
+          Console.WriteLine("{0}",first.Equals(seconf));
+            Console.WriteLine("{0}",first==seconf);
+            Console.WriteLine("{0}",first.GetHashCode());
+            Console.WriteLine("{0}",seconf.GetHashCode());
+        }
+    }
+}
+
+
+Q3
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+  
+    public class program
+    {
+        public static void Refectoveranonymous(object obj)
+        {
+            Console.WriteLine("Base:{0} is {1} with {2} and have {3}",obj.GetType().Name,obj.GetType().BaseType,obj.GetHashCode(),obj.ToString());
+        }
+        public static void Main()
+        {
+            var first = new[] { new { Color = "Bright Pink", Make = "Saab", CurrentSpeed = 55 }, new {Color = "Bright Pink", Make = "Saab", CurrentSpeed = 55 },new { Color = "Bright Pink", Make = "Saab", CurrentSpeed = 55 } };
+            Console.WriteLine(first.GetType());
+            foreach(var item in first) { Console.WriteLine(item.Color); Console.WriteLine(item.Make); Console.WriteLine(item.CurrentSpeed); }
+
+
+        }
+    }
+}
+
+
+Q4
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    delegate void Cnt();
+  
+    public class program
+    {
+       
+        public static void Main()
+        {
+            Cnt c= delegate {
+            
+                for(int i = 0; i < 10; i++)
+                {
+                    i = i * 9;
+                    i += 69;
+                    i-= 80;
+                    Console.WriteLine(i);
+                }
+
+            };
+            c();
+
+
+        }
+    }
+}
+
+
+Q5
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    delegate void Cnt();
+    public class A
+    {
+        public void Method()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                i = i * 9;
+                i += 69;
+                i -= 80;
+                Console.WriteLine(i);
+            }
+        }
+    }
+  
+    public class program
+    {
+       
+        public static void Main()
+        {
+            A a = new A();
+            Cnt c=a.Method;
+            c();
+            
+
+        }
+    }
+}
+
