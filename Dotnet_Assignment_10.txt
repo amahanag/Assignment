@@ -1,0 +1,482 @@
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    class Item
+    {
+        string name;
+        public string Name { get { return name; } set { name = value;} }
+        public int itemstock;
+        public Item(String n,int no)
+        {
+            name = n;
+            itemstock = no;
+        }
+            
+    }
+    class InstockStatus
+    {
+        public int itemstock {  get; set; }
+        public bool Instock { get; set; }
+        public InstockStatus(int n,bool b)
+        {
+            itemstock=n;
+            Instock = b;
+
+        }
+       
+    }
+    public class Temp
+    {
+        public string Name { get; set; }
+        public bool Instock { get; set; }
+        public Temp(string n, bool b)
+        {
+            Name = n;
+            Instock = b;
+        }
+    }
+
+    public class program
+    {
+
+        public static void Main()
+        {
+            Item[] referenceitem =
+            {
+                new Item("Abhishek", 1424),
+                new Item("Abhishek", 7892),
+                new Item("Abhishek", 8534),
+                new Item("Abhishek", 6411),
+
+            };
+            InstockStatus[] referenceofstock = {
+                new InstockStatus(1424, true),
+                new InstockStatus(1424, false),
+                new InstockStatus(1424, true),
+                new InstockStatus(1424, true)
+            };
+            var u = from w in referenceitem
+                    join e in referenceofstock
+                    on w.itemstock equals e.itemstock
+                    select new Temp(w.Name, e.Instock);
+            Console.WriteLine("Item\tavailable");
+            foreach (Temp t in u)
+                Console.WriteLine("{0},{1}", t.Name, t.Instock);
+        }
+    }
+
+            
+}
+
+
+
+Q2
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    class Item
+    {
+        string name;
+        public string Name { get { return name; } set { name = value;} }
+        public int itemstock;
+        public Item(String n,int no)
+        {
+            name = n;
+            itemstock = no;
+        }
+            
+    }
+    class InstockStatus
+    {
+        public int itemstock {  get; set; }
+        public bool Instock { get; set; }
+        public InstockStatus(int n,bool b)
+        {
+            itemstock=n;
+            Instock = b;
+
+        }
+       
+    }
+    public class Temp
+    {
+        public string Name { get; set; }
+        public bool Instock { get; set; }
+        public Temp(string n, bool b)
+        {
+            Name = n;
+            Instock = b;
+        }
+    }
+
+    public class program
+    {
+
+        public static void Main()
+        {
+            Item[] referenceitem =
+            {
+                new Item("Abhishek", 1424),
+                new Item("Abhishek", 7892),
+                new Item("Abhishek", 8534),
+                new Item("Abhishek", 6411),
+
+            };
+            InstockStatus[] referenceofstock = {
+                new InstockStatus(1424, true),
+                new InstockStatus(1424, false),
+                new InstockStatus(1424, true),
+                new InstockStatus(1424, true)
+            };
+            /*var u = from w in referenceitem
+                    join e in referenceofstock
+                    on w.itemstock equals e.itemstock
+                    select new Temp(w.Name, e.Instock);
+            Console.WriteLine("Item\tavailable");
+            foreach (Temp t in u)
+                Console.WriteLine("{0},{1}", t.Name, t.Instock);*/
+            IEnumerable<Temp> inStockList = from item in referenceitem
+                                            join entry in referenceofstock
+                              on item.itemstock equals entry.itemstock
+                                            select new Temp(item.Name,entry.Instock);
+            foreach(var Temp in inStockList)
+                Console.WriteLine("{0},{1}", Temp.Name, Temp.Instock);
+
+        }
+    }
+
+            
+}
+
+
+Q3
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+namespace ABC
+{
+    class Item
+    {
+        string name;
+        public string Name { get { return name; } set { name = value;} }
+        public int itemstock;
+        public Item(String n,int no)
+        {
+            name = n;
+            itemstock = no;
+        }
+            
+    }
+    class InstockStatus
+    {
+        public int itemstock {  get; set; }
+        public bool Instock { get; set; }
+        public InstockStatus(int n,bool b)
+        {
+            itemstock=n;
+            Instock = b;
+
+        }
+       
+    }
+    public class Temp
+    {
+        public string Name { get; set; }
+        public bool Instock { get; set; }
+        public Temp(string n, bool b)
+        {
+            Name = n;
+            Instock = b;
+        }
+    }
+
+    public class program
+    {
+
+        public static void Main()
+        {
+            Item[] referenceitem =
+            {
+                new Item("Abhishek", 1424),
+                new Item("Abhishek", 7892),
+                new Item("Abhishek", 8534),
+                new Item("Abhishek", 6411),
+
+            };
+            InstockStatus[] referenceofstock = {
+                new InstockStatus(1424, true),
+                new InstockStatus(1424, false),
+                new InstockStatus(1424, true),
+                new InstockStatus(1424, true)
+            };
+            /*var u = from w in referenceitem
+                    join e in referenceofstock
+                    on w.itemstock equals e.itemstock
+                    select new Temp(w.Name, e.Instock);
+            Console.WriteLine("Item\tavailable");
+            foreach (Temp t in u)
+                Console.WriteLine("{0},{1}", t.Name, t.Instock);*/
+            var inStockList = from item in referenceitem
+                              join entry in referenceofstock
+                              on new { item.itemstock } equals new { entry.itemstock }
+                              select item.Name + " " + entry.Instock;
+            foreach (var Temp in inStockList)
+                Console.WriteLine("{0}", Temp);
+
+        }
+    }
+
+            
+}
+
+
+
+Q4
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+namespace ABC
+{
+    public class Employee
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public int Salary { get; set; }
+        public int DeptID { get; set; }
+    }
+    public class Department
+    {
+        public int DeptID { get; set; }
+        public string DepName { get; set; }
+    }
+    public class Temp
+    {
+        public string Name { get; set; }
+        public string DepName { get; set; }
+        public Temp(string n, string b)
+        {
+            Name = n;
+            DepName = b;
+        }
+    }
+
+    public class program
+    {
+
+        public static void Main()
+        {
+            Employee[] empinfo =
+            {
+                new Employee{ID=1,Name="Abhishek",Salary=250000,DeptID=2564},
+                new Employee{ID=2,Name="Abhishek2",Salary=350000,DeptID=2565},
+                new Employee{ID=3,Name="Abhishek3",Salary=450000,DeptID=2566},
+                new Employee{ID=4,Name="Abhishek4",Salary=550000,DeptID=2567},
+                new Employee{ID=5,Name="Abhishek5",Salary=650000,DeptID=2568},
+                new Employee{ID=6,Name="Abhishek6",Salary=750000,DeptID=2569}
+            };
+
+            Department[] deptinfo = {
+                new Department{DeptID=2564 ,DepName="ADV", },
+                new Department{ DeptID=2565,DepName="HR" , },
+                new Department{ DeptID=2566,DepName="HR" , },
+
+            };
+            /*var u = from w in referenceitem
+                    join e in referenceofstock
+                    on w.itemstock equals e.itemstock
+                    select new Temp(w.Name, e.Instock);
+            Console.WriteLine("Item\tavailable");
+            foreach (Temp t in u)
+                Console.WriteLine("{0},{1}", t.Name, t.Instock);*/
+            /*var inStockList = from item in referenceitem
+                              join entry in referenceofstock
+                              on new { item.itemstock } equals new { entry.itemstock }
+                              select item.Name + " " + entry.Instock;
+            foreach (var Temp in inStockList)
+                Console.WriteLine("{0}", Temp);*/
+
+            var q = from A in empinfo
+                    join E in deptinfo
+                    on A.DeptID equals E.DeptID
+                    select new Temp(A.Name, E.DepName);
+
+            foreach ( var item in q )
+                Console.WriteLine("{0},{1}",item.DepName,item.Name);
+
+        }
+    }
+
+            
+}
+
+Q5
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+namespace ABC
+{
+    class Product
+    {
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
+        public string Category { get; set; }
+        public double UnitPrice { get; set; }
+        public int UnitsInStock { get; set; }
+
+    }
+
+
+    public class program
+    {
+
+        public static void Main()
+        {
+                    List<Product> products = new List<Product>{
+               new Product { ProductID=1, ProductName="Chai", Category="Beverages", UnitPrice=18.0000 ,UnitsInStock=39},
+
+        new Product { ProductID=2 ,ProductName="Chang", Category="Food", UnitPrice=19.0000, UnitsInStock=17},
+
+        new Product { ProductID=24, ProductName="Guaraná", Category="Food", UnitPrice=4.5000, UnitsInStock=20},
+
+        new Product { ProductID=34, ProductName="Sasquatch Ale", Category="Food", UnitPrice=14.0000, UnitsInStock=111},
+
+        new Product { ProductID=35, ProductName="Steeleye Stout", Category="Food", UnitPrice=18.0000 ,UnitsInStock=20},
+
+        new Product { ProductID=38, ProductName="Côte de Blaye" ,Category="Beverages", UnitPrice=263.5000, UnitsInStock=17},
+
+        new Product { ProductID=39, ProductName="Chartreuse vertev", Category="Beverages", UnitPrice=18.0000 ,UnitsInStock=69}
+        ,
+        new Product { ProductID=43, ProductName="Ipoh Coffee" ,Category="Beverages", UnitPrice=46.0000, UnitsInStock=17},
+
+        new Product { ProductID=67, ProductName="Laughing Lumberjack Lagerv", Category="Beverages", UnitPrice=14.0000, UnitsInStock=52}
+
+             };
+            var ordergroup = from a in products
+                             group a by a.Category into s
+                             select new { Category = s.Key, Product = s };
+            foreach (var order in ordergroup)
+            {
+                Console.WriteLine(order.Category);
+                foreach (var product in order.Product)
+                    Console.WriteLine((product.ProductID, product.ProductName, product.UnitPrice, product.Category));
+            }
+
+            var p= products.GroupBy(a => a.Category = "Food");
+            foreach(var order in p)
+                Console.WriteLine("{0} {1}",order.Key,order.Count());
+
+
+
+        }
+
+    }
+
+
+}
+Q6
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+namespace ABC
+{
+
+
+
+    public class program
+    {
+
+        public static void Main()
+        {
+            string[] strings = { "blueberry", "chimpanzee", "abacus", "banana", "apple", "cheese" };
+            var sample = from i in strings
+                         group i by i[0] into s
+                         select new { first = s.Key, s = s };
+            foreach (var s in sample)
+            {
+                Console.WriteLine(s.first);
+
+                foreach (var w in s.s)
+                {
+                    Console.WriteLine(w);
+                }
+
+            }
+
+        }
+    }
+}
+
+
+
+
+Q7
+using System;
+using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+namespace ABC
+{
+    class Employee
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string DeptSalary { get; set; }
+    }
+
+
+
+
+    public class program
+    {
+
+        public static void Main()
+        {
+            List<Employee> emp = new List<Employee>
+            {
+                new Employee{ID=1, Name="Raj", DeptSalary="HR" },
+                new Employee{ID=2, Name="Raja", DeptSalary="HR" },
+                new Employee{ID=3, Name="Rajani", DeptSalary="ADV" },
+                new Employee{ID=4, Name="Kavita", DeptSalary="MKT" },
+                new Employee{ID=5, Name="Vidya", DeptSalary="MKT" },
+                new Employee{ID=6, Name="Ganesh", DeptSalary="HR" },
+                new Employee{ID=7, Name="Mohan", DeptSalary="MKT" }
+
+            };
+            var detail = emp.GroupBy(e => e.DeptSalary);
+            foreach (var item in detail)
+            {
+                Console.WriteLine(item.Key);
+                foreach (var u in item)
+                    Console.WriteLine("{0},{1},{2}", u.ID, u.Name, u.DeptSalary);
+
+
+
+            }
+        }
+    }
+}
+
+
+
+
