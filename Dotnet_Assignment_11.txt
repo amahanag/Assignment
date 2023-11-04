@@ -1,0 +1,292 @@
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using static Customer.PrintCustomer;
+namespace Customer
+{
+    class Customer
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Mobile { get; set; }
+        class Program
+        {
+            public static IConfiguration _inconfiguration;
+
+
+
+            static void Main(string[] args)
+            {
+                GetAppSettingFile();
+                //Print();
+                diplayCustomer();
+                
+
+
+            }
+            static void GetAppSettingFile()
+            {
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("AppSetting.json", optional: false, reloadOnChange: true);
+                _inconfiguration = builder.Build();
+
+            }
+           /* static void Print()
+            {
+                PrintCustomer obj = new PrintCustomer(_inconfiguration);
+                obj.product();
+                //obj.productinsert();
+            }*/
+            static void diplayCustomer()
+            {
+                Strongly_type indata = new Strongly_type(_inconfiguration);
+                List<Customer> Is = indata.GetList();
+                foreach (var x in Is)
+                {
+                    Console.WriteLine("{0},{1},{2}", x.Id, x.Name, x.Address);
+                }
+                Customer p1 = new Customer {Name = "Devyanshu", Address = "Mirzapur" };
+                int a = indata.AddData(p1);
+                Console.WriteLine("{0}", a);
+
+                int record = indata.del(1010);
+                Console.WriteLine("deleted {0}", record);
+
+                List<Customer> pl = indata.search("Abhishek");
+                if (pl != null)
+                {
+                    foreach (var x in pl)
+                        Console.WriteLine("{0}{1}{2}", x.Id, x.Name, x.Address);
+                }
+                else { Console.WriteLine("record with Abhishek not found"); }
+
+                Customer p5 = new Customer {Id=1006, Name = "Devyanshu",Address="Juhu Ekta" };
+                int ab = indata.AddData(p5);
+                Console.WriteLine("Update");
+                Console.WriteLine("{0}", ab);
+                Console.WriteLine("Updated");
+
+            }
+        }
+    }
+}
+
+
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Customer
+{
+    internal class PrintCustomer
+    {
+      /*  public string _connectionString;
+        public PrintCustomer(IConfiguration iconfiguration)
+        {
+            _connectionString = iconfiguration.GetConnectionString("Default");
+        }
+        public void product()
+        {
+            using (SqlConnection s = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("Select * from Customer", s);
+                s.Open();
+                Console.WriteLine("Open");
+                SqlDataReader rdr = cmd.ExecuteReader();
+                if (rdr.HasRows)
+                {
+                    while (rdr.Read())
+                    {
+                        Console.WriteLine("{0} {1} {2} {3}", rdr["Id"], rdr["Name"], rdr["Mobile no"], rdr["Address"]);
+                    }
+                }
+            }
+
+        }*/
+        
+        /*public void productinsert()
+        {
+            using(SqlConnection c=new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("insert into CusTable values ('Yadav',5000)",c);
+                c.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                Console.WriteLine("Inserted"+rowsAffected);
+                cmd.CommandText = "update Custable set Rent= 7001 where Id = 2";
+                rowsAffected = cmd.ExecuteNonQuery();
+                Console.WriteLine("Updated Rows = " + rowsAffected);
+
+            }
+        }*/
+
+        internal class Strongly_type
+        {
+            private string _connectionString;
+            public Strongly_type(IConfiguration iconfiguration)
+            {
+                _connectionString = iconfiguration.GetConnectionString("Default");
+            }
+            public SqlConnection getconnection()
+            {
+                SqlConnection sqlConnection = new SqlConnection(_connectionString);
+                sqlConnection.ConnectionString = _connectionString;
+                return sqlConnection;
+            }
+            public List<Customer> GetList()
+            {
+
+                var list = new List<Customer>();
+                try
+                {
+                    using (SqlConnection con = new SqlConnection(_connectionString))
+                    {
+                        SqlCommand cmd = new SqlCommand("SP_Cus_GET_LIST", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        Console.WriteLine("Open");
+                        while (rdr.Read())
+                        {
+                            list.Add(new Customer
+                            {
+                                Id = Convert.ToInt32(rdr["Id"]),
+                                Name = rdr["Name"].ToString(),
+                                Address = rdr["Address"].ToString(),
+                                //Mobile = rdr["Mobile"].ToString()
+                                
+                            });
+
+
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error"+ex);
+                }
+                return list;
+
+            }
+            public int AddData(Customer e)
+            {
+                SqlConnection sqlconn = null;
+                SqlCommand sqlCommand = null;
+                int record = 0;
+                try
+                {
+                    sqlconn = getconnection();
+                    sqlCommand = new SqlCommand("storedata", sqlconn);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.Add("@pname",SqlDbType.NVarChar).Value=e.Name;
+                    sqlCommand.Parameters.AddWithValue("paddress", SqlDbType.NVarChar).Value = e.Address;
+                    sqlconn.Open();
+                    record =sqlCommand.ExecuteNonQuery();   
+
+                }
+                catch(SqlException ex) 
+                {
+                    Console.WriteLine(ex);
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+                return record;
+            }
+            public int del(int id)
+            {   SqlConnection sqlconn = null;
+                    SqlCommand sqlCommand = null;
+                    int record = 0;
+                try
+                {
+                    using (sqlconn = getconnection())
+                    {
+                        sqlconn.Open();
+                        sqlCommand = new SqlCommand("delete from Customer where id=@pid", sqlconn);
+                        sqlCommand.Parameters.AddWithValue("@pid", id);
+                        record = sqlCommand.ExecuteNonQuery();
+
+                    }
+                }
+                catch(SqlException e)
+                {
+                    Console.WriteLine(e);
+                }
+                return record;
+
+            }
+            public List<Customer> search(string Name)
+            {
+                SqlConnection sqlconn = null;
+                SqlCommand sqlCommand = null;
+                List<Customer> records = null;
+                try
+                {
+                    sqlconn = getconnection();
+                    sqlconn.Open();
+                    sqlCommand = new SqlCommand("select * from Customer where name=@pid", sqlconn);
+                    sqlCommand.Parameters.AddWithValue("@pid", Name);
+                    SqlDataReader rd = sqlCommand.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        records= new List<Customer>();
+                        while(rd.Read())
+                        {
+                           Customer p= new Customer();
+                            p.Id = Convert.ToInt32(rd["Id"]);
+                            p.Name = rd["Name"].ToString();
+                            p.Address= rd["Address"].ToString();
+                            records.Add(p);
+
+                        }
+                    }
+                }
+                catch(SqlException e) 
+                {
+                    Console.WriteLine(e);
+                }
+                finally
+                {
+                    sqlconn.Close();
+                }
+                return records;
+            }
+            public int update(int Id,string Name,string Address)
+            {
+                SqlConnection sqlconn = null;
+                SqlCommand sqlCommand = null;
+                int record = 0;
+                try
+                {
+                    using (sqlconn = getconnection())
+                    {
+                        sqlCommand = new SqlCommand("UpdateRecord", sqlconn);
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlCommand.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int)).Value = Id;
+                        sqlCommand.Parameters.Add(new SqlParameter("@Name", SqlDbType.NVarChar, 255)).Value = Name;
+                        sqlCommand.Parameters.Add(new SqlParameter("@Address", SqlDbType.NVarChar, 255)).Value = Address;
+                        sqlconn.Open();
+                        record = sqlCommand.ExecuteNonQuery();
+                    }
+                }
+                catch (SqlException e)
+                {
+                    Console.WriteLine(e);
+                }
+                return record;
+            }
+        }
+
+    }
+}
