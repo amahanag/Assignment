@@ -1,0 +1,152 @@
+************************Entity**************************************
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeEntity.Models
+{
+    public class Employee
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }    
+        public int? Salary {  get; set; }    
+        public int? deptid {  get; set; }
+
+        public override string ToString()
+        {
+            return String.Format("{0},{1},{2},{3}",Id,Name,Salary,deptid);
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeEntity.Models
+{
+    public class Department
+    {
+        public int Id { get; set; }    
+        public string? Name { get; set; }
+        [ForeignKey("Departmentid")]
+
+        public IList<Employee> employee { get; set; }    
+    }
+}
+
+
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeEntity.Models
+{
+    public class EmployeeContext:DbContext
+    {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
+        {
+            optionsbuilder.UseSqlServer(@"Data Source=(localdb)\ProjectModels;Initial Catalog=demo_product;Integrated Security=True");
+        }
+        public DbSet<Employee> Employee { get; set; }   
+        public DbSet<Department> Department { get; set; }   
+    }
+}
+using EmployeeEntity.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EmployeeEntity
+{
+    internal class DbService
+    {
+        private static readonly EmployeeContext employeeContext = new EmployeeContext();
+        public void AddData(Employee em)
+        {
+
+            employeeContext.Add<Employee>(em);
+            employeeContext.SaveChanges();
+
+        }
+        public void Display()
+        {
+            foreach (var e in employeeContext.Employee.ToList())
+            {
+                Console.WriteLine(e);
+            }
+        }
+        public void Delete(int id)
+        {
+            Employee employee = employeeContext.Employee.FirstOrDefault(e => e.Id == id);
+            if(employee != null) 
+            {
+                employeeContext.Employee.Remove(employee);
+                employeeContext.SaveChanges();
+            }
+        }
+        public List<Employee> CustomQuery(int id )
+        {
+            FormattableString sql = $"SELECT * from Employee WHERE deptid={id}";
+            var Employee=employeeContext.Employee.FromSql(sql).ToList();
+            return Employee;
+        }
+        public void LiqDemo()
+        {
+            var r=employeeContext.Employee.Join(employeeContext.Department,(sc)=>sc.Id,(sf=>sf.Id),(q,d)=>new { Salary = q.Salary, Name = d.Name });
+            foreach(var e in r)
+            {
+                Console.WriteLine(e.Name);
+                Console.WriteLine(e.Salary);
+            }
+        }
+        public void ADD(int id)
+        {
+            var r = employeeContext.Department.Where((e) => e.Id == id).Select((e) => e);
+            foreach(var e in r)
+            {
+                Console.WriteLine(e.Name);
+            }
+        }
+        
+    }
+}
+using EmployeeEntity.Models;
+
+namespace EmployeeEntity
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            DbService d=new DbService();
+
+
+            /* Employee employee = new Employee() { Name="Rohit",Salary=600000,deptid=1060};
+             //d.AddData(emp2);
+             d.Delete(1003);
+             d.AddData(employee);
+             d.Display();*/
+
+            
+            d.LiqDemo();
+            d.ADD(1);
+            List<Employee> s = d.CustomQuery(1058);
+            foreach (Employee emp in s)
+            {
+                Console.WriteLine(emp);
+            }
+        }
+    }
+}
