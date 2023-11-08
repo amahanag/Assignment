@@ -1,0 +1,166 @@
+namespace WebApplication2.Models
+{
+    public interface ICustomer
+    {
+        IEnumerable<Customer> GetAllCustomer();
+    }
+}
+
+using System.ComponentModel.DataAnnotations;
+
+namespace WebApplication2.Models
+{
+    public class Customer
+    {
+        public int Id { get; set; }
+
+        [MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
+        public string Name { get; set; }
+        [Display(Name = "Office Email")]
+        [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
+        ErrorMessage = "Invalid email format")]
+
+        public int MobileNo { get; set; }
+        public int? BillAmount { get; set; }
+
+    }
+}
+
+
+namespace WebApplication2.Models
+{
+    public class ServiceCustomer : ICustomer
+    {
+        private static List<Customer> _customerList;
+        public ServiceCustomer()
+        {
+            _customerList = new List<Customer>(){
+            new Customer() { Id = 1, Name = "Mary", MobileNo = 123456789, BillAmount = 25634 },
+            new Customer() { Id = 2, Name = "John", MobileNo = 987654321, BillAmount = 65978},
+            new Customer() { Id = 3, Name = "Sam", MobileNo = 748569426, BillAmount = 74485 },
+    };
+        }
+
+        public IEnumerable<Customer> GetAllCustomer()
+        {
+            return _customerList;
+        }
+    }
+}
+using Microsoft.AspNetCore.Mvc;
+using WebApplication2.Models;
+
+namespace WebApplication2.Controllers
+{
+    public class CustomerController : Controller
+    {
+        ICustomer cust;
+        public CustomerController(ICustomer cus)
+        {
+            cust=cus;
+
+        }
+        public IActionResult Index()
+        {
+            var r=cust.GetAllCustomer();
+            return View(r);
+        }
+        public IActionResult Display()
+        {
+            return View();
+        }
+    }
+}
+using WebApplication2.Models;
+
+namespace WebApplication2
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<ICustomer, ServiceCustomer>();
+
+            var app = builder.Build();
+
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.Run();
+        }
+    }
+}
+@model IEnumerable<WebApplication2.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillAmount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MobileNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
