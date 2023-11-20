@@ -1,0 +1,164 @@
+Q1 
+ Select First_name,Last_name,Salary from Worker order by salary desc limit 5;
++------------+-----------+--------+
+| First_name | Last_name | Salary |
++------------+-----------+--------+
+| Amitabh    | Singh     | 500000 |
+| Vivek      | Bhati     | 500000 |
+| Vishal     | Singhal   | 300000 |
+| Vipul      | Diwan     | 200000 |
+| Monika     | Arora     | 100000 |
++------------+-----------+--------+
+
+Q2
+ Select First_name,Last_name,Salary from Worker where Worker_id<6 order by salary desc ;
++------------+-----------+--------+
+| First_name | Last_name | Salary |
++------------+-----------+--------+
+| Amitabh    | Singh     | 500000 |
+| Vivek      | Bhati     | 500000 |
+| Vishal     | Singhal   | 300000 |
+| Monika     | Arora     | 100000 |
+| Niharika   | Verma     |  80000 |
++------------+-----------+--------+
+
+Q3
+ SELECT salary AS Result FROM Worker GROUP BY salary HAVING COUNT(*) > 1;
++--------+
+| Result |
++--------+
+| 500000 |
++--------+
+
+Q4
+
+ Select * from Worker Union all Select * from Worker;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+Q5
+ 
+Select * from Worker Where Worker_id<=(Select Max(Worker_id)/2 from worker);
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q6
+
+ Select Department,Count(*) from Worker group by Department having Count(*)<5;
++------------+----------+
+| Department | Count(*) |
++------------+----------+
+| HR         |        2 |
+| Admin      |        4 |
+| Account    |        2 |
++------------+----------+
+
+Q7
+ Select Department,Count(*) from Worker group by Department;
++------------+----------+
+| Department | Count(*) |
++------------+----------+
+| HR         |        2 |
+| Admin      |        4 |
+| Account    |        2 |
++------------+----------+
+
+Q8
+
+ Select * from worker order by Worker_id desc limit 1;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q9
+ Select * from worker order by Worker_id limit 1;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q10
+ Select * from worker order by Worker_id desc limit 5;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q11
+ select t.department,first_name,last_name,t.salary from (select department,max(salary) salary from worker group by department) as t join worker where t.salary=worker.salary;
++------------+------------+-----------+--------+
+| department | first_name | last_name | salary |
++------------+------------+-----------+--------+
+| HR         | Vishal     | Singhal   | 300000 |
+| Admin      | Amitabh    | Singh     | 500000 |
+| Admin      | Vivek      | Bhati     | 500000 |
+| Account    | Vipul      | Diwan     | 200000 |
++------------+------------+-----------+--------+
+Q12
+ Select * from worker order by Salary desc limit 3;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q13
+ Select * from worker order by Salary limit 3;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q14
+ Select Worker_id,salary from worker order by Salary desc limit 1 offset 2 ;
++-----------+--------+
+| Worker_id | salary |
++-----------+--------+
+|         3 | 300000 |
++-----------+--------+
+
+Q15
+ Select Department,Count(*),Sum(Salary) from Worker group by Department;
++------------+----------+-------------+
+| Department | Count(*) | Sum(Salary) |
++------------+----------+-------------+
+| HR         |        2 |      400000 |
+| Admin      |        4 |     1170000 |
+| Account    |        2 |      275000 |
++------------+----------+-------------+
