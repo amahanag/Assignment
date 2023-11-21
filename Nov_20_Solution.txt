@@ -1,0 +1,252 @@
+Q1
+ Select First_name from Worker;
++------------+
+| First_name |
++------------+
+| Monika     |
+| Niharika   |
+| Vishal     |
+| Amitabh    |
+| Vivek      |
+| Vipul      |
+| Satish     |
+| Geetika    |
++------------+
+
+Q2
+
+Select UPPER(First_name) from Worker ;
++-------------------+
+| UPPER(First_name) |
++-------------------+
+| MONIKA            |
+| NIHARIKA          |
+| VISHAL            |
+| AMITABH           |
+| VIVEK             |
+| VIPUL             |
+| SATISH            |
+| GEETIKA           |
++-------------------+
+
+Q3
+
+Select DISTINCT Department from Worker;
++------------+
+| Department |
++------------+
+| HR         |
+| Admin      |
+| Account    |
++------------+
+
+Q4
+
+ Select First_name, Last_Name,CONCAT(First_Name,' ',Last_Name) sd from Worker;
++------------+-----------+-----------------+
+| First_name | Last_Name | sd              |
++------------+-----------+-----------------+
+| Monika     | Arora     | Monika Arora    |
+| Niharika   | Verma     | Niharika Verma  |
+| Vishal     | Singhal   | Vishal Singhal  |
+| Amitabh    | Singh     | Amitabh Singh   |
+| Vivek      | Bhati     | Vivek Bhati     |
+| Vipul      | Diwan     | Vipul Diwan     |
+| Satish     | Kumar     | Satish Kumar    |
+| Geetika    | Chauhan   | Geetika Chauhan |
++------------+-----------+-----------------+
+
+Q5
+ Select DISTINCT Department,first_name from Worker;
++------------+------------+
+| Department | first_name |
++------------+------------+
+| HR         | Monika     |
+| Admin      | Niharika   |
+| HR         | Vishal     |
+| Admin      | Amitabh    |
+| Admin      | Vivek      |
+| Account    | Vipul      |
+| Account    | Satish     |
+| Admin      | Geetika    |
++------------+------------+
+
+Q6
+ Select * from Worker order by First_Name;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q7
+ Select * from Worker where First_Name='Vipul' or First_Name= 'Satish';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q8
+ Select * from Worker where First_Name<>'Vipul'and First_Name<>'Satish';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q9
+ Select * from Worker where Department='Admin';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q10
+ Select * from Worker where First_Name like '%a%';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q11
+ Select * from Worker where First_Name like '%a';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q12
+Select * from Worker where First_Name like '%______h';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q13
+ Select * from Worker where Salary=100000 || Salary=500000;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q14
+ Select * from Worker where Month(Joining_date)=2 and Year(Joining_date)=2014 and Time(Joining_Date)='09:00:00';
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q15
+
+ Select count(Worker_id) from worker where Department='Admin';
++------------------+
+| count(Worker_id) |
++------------------+
+|                4 |
++------------------+
+
+Q16
+ Select * from Worker where salary>=50000 && Salary<=100000;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+
+Q17
+
+ Select department,Count(*) from worker group by department order by count(*) desc ;
++------------+----------+
+| department | Count(*) |
++------------+----------+
+| Admin      |        4 |
+| HR         |        2 |
+| Account    |        2 |
++------------+----------+
+
+Q18
+
+ Select * from Worker join Title where Worker_Title='Manager';
++-----------+------------+-----------+--------+---------------------+------------+---------------+--------------+---------------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT | WORKER_REF_ID | WORKER_TITLE | AFFECTED_FROM       |
++-----------+------------+-----------+--------+---------------------+------------+---------------+--------------+---------------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |             5 | Manager      | 2016-06-11 00:00:00 |
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |             1 | Manager      | 2016-02-20 00:00:00 |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |             5 | Manager      | 2016-06-11 00:00:00 |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |             1 | Manager      | 2016-02-20 00:00:00 |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |             5 | Manager      | 2016-06-11 00:00:00 |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |             1 | Manager      | 2016-02-20 00:00:00 |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |             5 | Manager      | 2016-06-11 00:00:00 |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |             1 | Manager      | 2016-02-20 00:00:00 |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |             5 | Manager      | 2016-06-11 00:00:00 |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |             1 | Manager      | 2016-02-20 00:00:00 |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |             5 | Manager      | 2016-06-11 00:00:00 |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |             1 | Manager      | 2016-02-20 00:00:00 |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |             5 | Manager      | 2016-06-11 00:00:00 |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |             1 | Manager      | 2016-02-20 00:00:00 |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |             5 | Manager      | 2016-06-11 00:00:00 |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |             1 | Manager      | 2016-02-20 00:00:00 |
++-----------+------------+-----------+--------+---------------------+------------+---------------+--------------+---------------------+
+Q19
+ Select First_Name,Last_Name,count(*),Salary rep from Worker join Title group by Worker_id ;
++------------+-----------+----------+--------+
+| First_Name | Last_Name | count(*) | rep    |
++------------+-----------+----------+--------+
+| Geetika    | Chauhan   |        8 |  90000 |
+| Satish     | Kumar     |        8 |  75000 |
+| Vipul      | Diwan     |        8 | 200000 |
+| Vivek      | Bhati     |        8 | 500000 |
+| Amitabh    | Singh     |        8 | 500000 |
+| Vishal     | Singhal   |        8 | 300000 |
+| Niharika   | Verma     |        8 |  80000 |
+| Monika     | Arora     |        8 | 100000 |
++------------+-----------+----------+--------+
+
+
+Q20
+ Select * from worker where Worker_id%2 <> 0;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
