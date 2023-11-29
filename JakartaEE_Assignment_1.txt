@@ -1,0 +1,189 @@
+Q1)
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+public class MyClass {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
+	{
+		String ss="jdbc:mysql://localhost:3306/bit";
+		try(Connection con=DriverManager.getConnection(ss,"root","root"))
+		{
+			Statement st=con.createStatement();
+			int rs=st.executeUpdate("Insert into Student values(1,'Abhishek',21)");
+			if (rs > 0) {
+                System.out.println("Row inserted successfully!");
+
+                // Note: Retrieving the inserted data is not necessary for an INSERT operation
+            } else {
+                System.out.println("Failed to insert row.");
+            }
+		}
+		catch(Exception ee)
+		{
+			System.out.println(ee);
+		}
+
+	}
+
+}
+
+Q2)
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+public class MyClass {
+
+
+	public static void main(String[] args) 
+	{
+		Scanner sc=new Scanner(System.in);
+		String d=sc.next();
+		String ss="jdbc:mysql://localhost:3306/bit";
+		try(Connection con=DriverManager.getConnection(ss,"root","root"))
+		{
+			PreparedStatement st=con.prepareStatement("Select * from Employee where desig=?");
+			st.setString(1,d);
+			ResultSet rs=st.executeQuery();
+			while(rs.next())
+			{
+				int i = rs.getInt(1);
+			    String s = rs.getString(2);
+			    String j = rs.getString(3);
+				System.out.println(i+" "+s+" "+j);
+			}
+		}
+		catch(Exception ee)
+		{
+			System.out.println(ee);
+		}
+
+	}
+
+}
+Q3
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.Scanner;
+class Product
+{
+	private int pid;
+	private int qty;
+	private double cost;
+	private String pname;
+	public Product(int pid, int qty, double cost, String pname) {
+		super();
+		this.pid = pid;
+		this.qty = qty;
+		this.cost = cost;
+		this.pname = pname;
+	}
+	/**
+	 * @return the pid
+	 */
+	public int getPid() {
+		return pid;
+	}
+	/**
+	 * @param pid the pid to set
+	 */
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+	/**
+	 * @return the qty
+	 */
+	public int getQty() {
+		return qty;
+	}
+	/**
+	 * @param qty the qty to set
+	 */
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	/**
+	 * @return the cost
+	 */
+	public double getCost() {
+		return cost;
+	}
+	/**
+	 * @param cost the cost to set
+	 */
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+	/**
+	 * @return the pname
+	 */
+	public String getPname() {
+		return pname;
+	}
+	/**
+	 * @param pname the pname to set
+	 */
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	
+	
+}
+public class MyClass {
+
+
+	public static void main(String[] args) 
+	{
+		Product p=new Product(1,200,2000,"Abhi");
+		p.getCost();
+		p.getPid();
+		p.getPname();
+		p.getQty();
+		String ss="jdbc:mysql://localhost:3306/bit";
+		try(Connection con=DriverManager.getConnection(ss,"root","root"))
+		{
+			PreparedStatement st=con.prepareStatement("Insert into Product values(?,?,?,?)");
+			st.setLong(1,2);
+			st.setLong(2, 300);
+			st.setLong(3, 3000);
+			st.setString(4, "Abhi1");
+			int val =st.executeUpdate();
+			if(val>0)
+			{
+				System.out.println("Insert Successfully"+val);
+			}
+			else
+			{
+				System.out.println("Failed");
+			}
+			Statement sf=con.createStatement();
+			ResultSet rs=sf.executeQuery("Select * from Product");
+			p=null;
+			while(rs.next())
+			{
+				int i=rs.getInt(1);
+				int j=rs.getInt(2);
+				int k=rs.getInt(3);
+				String str=rs.getString(4);
+				System.out.println(i+" "+j+" "+k+" "+str);
+			}
+		}
+		catch(Exception ee)
+		{
+			System.out.println(ee);
+		}
+
+	}
+
+}
+
