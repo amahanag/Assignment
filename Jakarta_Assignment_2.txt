@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<a href="data.html">Add student</a>
+<a href="ViewStudent">View Student</a>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="AddStudent" method="post">
+ Enter Name: <input type="text" name="name"/><br><br>
+        Enter Age: <input type="text" name="age"/><br><br>
+        Enter Address: <input type="text" name="address"/><br><br>
+        <input type="submit"/>
+
+</form>
+</body>
+</html>
+
+
+
+
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+/**
+ * Servlet implementation class AddStudent
+ */
+public class AddStudent extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private Connection con;
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		try {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bit","root","root");
+		
+		}
+		catch(Exception ee)
+		{
+			ee.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+		response.setContentType("text/html");
+		PrintWriter pw=response.getWriter();
+		String name=request.getParameter("name");
+		int age=Integer.parseInt(request.getParameter("age").trim());
+		String address=request.getParameter("address");
+		PreparedStatement ps=con.prepareStatement("Insert into Student(name,age,address) values (?,?,?)");
+		ps.setString(1, name);
+		ps.setInt(2, age);
+		ps.setString(3, address);
+		int val=ps.executeUpdate();
+		if(val>0) {
+			pw.println("Inserted");
+		}
+		else
+		{
+			pw.println("Failed");
+		}
+		}
+		catch(Exception ee)
+		{
+			ee.printStackTrace();
+		}
+	}
+
+}
+
+
+
+
+
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ * Servlet implementation class ViewStudent
+ */
+public class ViewStudent extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private Connection con;
+
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
+		try {
+			Class.forName("com.mysql.cj.jdbc.db");
+			String URL="jdbc:mysql://localhost:3306/bit";
+			con=DriverManager.getConnection(URL,"root","root");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		try (PreparedStatement ps = con.prepareStatement("SELECT * FROM Student")){
+	             ResultSet rs = ps.executeQuery();
+			PrintWriter pw = response.getWriter();
+
+
+	            // Iterate through the result set
+	            while (rs.next()) {
+	                String studentName = rs.getString("name");
+	                int studentAge = rs.getInt("age");
+	                String studentAddress = rs.getString("address");
+	                
+	                // Display each student's information
+	                pw.println("<li>Name: " + studentName + ", Age: " + studentAge + ", Address: " + studentAddress + "</li>");
+	            }
+
+	            pw.println("</ul>");
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+		
+	}
+
+}
